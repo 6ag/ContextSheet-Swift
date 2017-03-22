@@ -8,17 +8,17 @@
 
 import UIKit
 
-class JFContextItem: UIView {
+open class JFContextItem: UIView {
     
     // MARK: - 初始化
-    init(itemName: String, itemIcon: String) {
+    public init(itemName: String, itemIcon: String) {
         super.init(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 40, height: 50)))
         
         itemLabel.text = itemName
         itemImage.image = UIImage(named: itemIcon)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -46,18 +46,18 @@ class JFContextItem: UIView {
     
 }
 
-protocol JFContextSheetDelegate: NSObjectProtocol {
+public protocol JFContextSheetDelegate: NSObjectProtocol {
     func contextSheet(_ contextSheet: JFContextSheet, didSelectItemWithItemName itemName: String)
 }
 
-class JFContextSheet: UIView {
+open class JFContextSheet: UIView {
     
     // MARK: - 屏幕尺寸
     let SCREEN_WIDTH = UIScreen.main.bounds.width
     let SCREEN_HEIGHT = UIScreen.main.bounds.height
     let SCREEN_BOUNDS = UIScreen.main.bounds
     
-    weak var delegate: JFContextSheetDelegate?
+    open weak var delegate: JFContextSheetDelegate?
     
     /// 圆的半径 触摸点到选项的直线距离
     fileprivate var pathRadius: CGFloat = 100
@@ -67,10 +67,10 @@ class JFContextSheet: UIView {
     fileprivate var insetY: CGFloat = 120
     
     /// 是否正在显示
-    var isShow = false
+    open var isShow = false
     
     // MARK: - 初始化
-    init(items: Array<JFContextItem>) {
+    public init(items: Array<JFContextItem>) {
         super.init(frame: SCREEN_BOUNDS)
         
         for itemView in items {
@@ -82,7 +82,7 @@ class JFContextSheet: UIView {
         addGestureRecognizer(tap)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -108,7 +108,7 @@ class JFContextSheet: UIView {
     /**
      隐藏视图
      */
-    func dismiss() {
+    open func dismiss() {
         
         isShow = false
         
@@ -151,8 +151,8 @@ class JFContextSheet: UIView {
             let tx = destinationPoint.x - centerPoint.x
             let ty = destinationPoint.y - centerPoint.y
             itemView.transform = itemView.transform.translatedBy(x: tx, y: ty)
-            }, completion: { (_) in
-                
+        }, completion: { (_) in
+            
         })
     }
     
@@ -319,7 +319,7 @@ class JFContextSheet: UIView {
      - parameter gestureRecognizer: 手势
      - parameter inView:            手势所在视图
      */
-    func startWithGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, inView: UIView) {
+    open func startWithGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, inView: UIView) {
         
         isShow = true
         
